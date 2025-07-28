@@ -18,14 +18,10 @@ class AppThemeData extends ThemeDataMyApp {
     _appThemeModeIsDark = isDark;
   }
 
-  static bool get appThemeModeIsDark => _appThemeModeIsDark ?? ThemeDataMyApp.isDark ?? true;
+  static bool get appThemeModeIsDark => true;
 
-  static ThemeData get themeData => appThemeModeIsDark ? themeDataDark : themeDataLight;
-  static ThemeMode get themeMode => ThemeDataMyApp.isDark == null
-      ? ThemeMode.system
-      : appThemeModeIsDark
-          ? ThemeMode.dark
-          : ThemeMode.light;
+  static ThemeData get themeData => themeDataDark;
+  static ThemeMode get themeMode => ThemeMode.dark;
 
   static final ThemeData themeDataLight = ThemeData(
     brightness: Brightness.light,
