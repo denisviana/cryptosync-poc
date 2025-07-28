@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -25,6 +26,7 @@ class CryptoApi {
     _channel.stream.listen(
       (raw) {
         try {
+          //log('Received message: $raw');
           final data = json.decode(raw) as List<dynamic>;
           final now = DateTime.now();
 

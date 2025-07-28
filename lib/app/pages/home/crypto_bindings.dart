@@ -11,6 +11,7 @@ class CryptoBindinds extends Bindings {
         watchUseCase: getIt(),
         fetchUseCase: getIt(),
         connectivity: getIt(),
+        queueIterator: getIt(),
       ),
     );
   }

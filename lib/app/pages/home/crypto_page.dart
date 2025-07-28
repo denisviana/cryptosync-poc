@@ -37,6 +37,8 @@ class CryptoPage extends GetView<CryptoController> {
               final isPositive = t.percentChange >= 0;
               final priceColor = isPositive ? Colors.green : Colors.red;
               final arrow = isPositive ? '↑' : '↓';
+              final favorites = controller.favorites; // RxSet<String>
+              final isFav = favorites.contains(t.symbol);
 
               return Container(
                 padding: const EdgeInsets.all(16),
@@ -54,7 +56,6 @@ class CryptoPage extends GetView<CryptoController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Nome e símbolo
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -74,7 +75,6 @@ class CryptoPage extends GetView<CryptoController> {
                         ),
                       ],
                     ),
-                    // Preço e variação
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -93,6 +93,13 @@ class CryptoPage extends GetView<CryptoController> {
                           ),
                         ),
                       ],
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        isFav ? Icons.star : Icons.star_border,
+                        color: isFav ? Colors.amber : Colors.grey,
+                      ),
+                      onPressed: () => controller.toggleFavorite(t.symbol),
                     ),
                   ],
                 ),

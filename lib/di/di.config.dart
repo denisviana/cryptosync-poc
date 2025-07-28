@@ -27,6 +27,7 @@ import '../core/data/network/dio_client.dart' as _i239;
 import '../core/data/repositories/cryptos_repository_impl.dart' as _i650;
 import '../core/domain/repositories/cryptos_repository.dart' as _i699;
 import '../core/domain/use_cases/fetch_cached_tickers_usecase.dart' as _i949;
+import '../core/domain/use_cases/queue_interaction_usecase.dart' as _i877;
 import '../core/domain/use_cases/watch_tickers_usecase.dart' as _i158;
 import 'modules/crypto_module.dart' as _i305;
 import 'modules/device_module.dart' as _i766;
@@ -77,16 +78,19 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.singleton<_i935.CryptoDao>(
         () => cryptoModule.provideCryptoDao(gh<_i492.AppDatabase>()));
-    gh.singleton<_i244.SecureLocalStorage>(
-        () => _i244.SecureLocalStorage(gh<_i558.FlutterSecureStorage>()));
     gh.factory<_i699.CryptosRepository>(() => _i650.CryptoRepositoryImpl(
           gh<_i102.CryptoApi>(),
           gh<_i492.AppDatabase>(),
+          gh<_i361.Dio>(),
         ));
+    gh.singleton<_i244.SecureLocalStorage>(
+        () => _i244.SecureLocalStorage(gh<_i558.FlutterSecureStorage>()));
     gh.factory<_i949.FetchCachedTickersUseCase>(
         () => _i949.FetchCachedTickersUseCase(gh<_i699.CryptosRepository>()));
     gh.factory<_i158.WatchTickersUseCase>(
         () => _i158.WatchTickersUseCase(gh<_i699.CryptosRepository>()));
+    gh.factory<_i877.QueueInteractionIterator>(
+        () => _i877.QueueInteractionIterator(gh<_i699.CryptosRepository>()));
     return this;
   }
 }
